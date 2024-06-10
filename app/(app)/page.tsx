@@ -8,8 +8,8 @@ import templates from '@/templates'
 import NextLink from 'next/link'
 
 export default async function Home() {
-    const sesh = await auth()
-
+    //const sesh = await auth()
+    const sesh = {user:{id:'416810'}}
     if (!sesh?.user) {
         return (
             <div className="flex flex-col p-5 w-full h-full gap-5">

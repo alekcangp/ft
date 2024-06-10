@@ -65,8 +65,6 @@ export const {
         }),
     ],
     callbacks: {
-        user: {id:416810}
-        /*
         jwt: async ({ token, user, account, profile, trigger }) => {
             if (user) token.user = user
             if (user) {
@@ -79,7 +77,6 @@ export const {
             //  session.user.uid = user.uid;
             return session
         },
-        */
     },
     events: {
         async signIn(message) {
