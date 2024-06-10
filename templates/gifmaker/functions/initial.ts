@@ -1,16 +1,23 @@
-'use server'
-import type { BuildFrameData } from '@/lib/farcaster'
-import { loadGoogleFontAllVariants } from '@/sdk/fonts'
-import type { Config, State } from '..'
-import CoverView from '../views/Cover'
+"use server";
+import type { BuildFrameData } from "@/lib/farcaster";
+import { loadGoogleFontAllVariants } from "@/sdk/fonts";
+import type { Config, State } from "..";
 
-export default async function initial(config: Config, state: State): Promise<BuildFrameData> {
-    const roboto = await loadGoogleFontAllVariants('Roboto')
+export default async function initial(
+  config: Config,
+  state: State,
+): Promise<BuildFrameData> {
+  const roboto = await loadGoogleFontAllVariants("Roboto");
 
-    return {
-        buttons: [{ label: 'VIEW' }],
-        fonts: roboto,
-        component: CoverView(config),
-        functionName: 'page',
-    }
+  //const data = await fetch(config.gif);
+  //const bufferData = Buffer.from(await data.arrayBuffer());
+  //bufferData.toString("base64");
+
+  return {
+    buttons: [
+      { label: `${config.label}`, action: "link", target: `${config.link}` },
+    ],
+    image: config.gif,
+    fonts: roboto,
+  };
 }
