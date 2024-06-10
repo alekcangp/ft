@@ -48,7 +48,7 @@ export default function Inspector() {
   return (
     <div className="w-full h-full space-y-4">
 
-      <h1 className="text-lg font-semibold">GIG Maker</h1>
+      <h1 className="text-lg font-semibold">GIF Maker</h1>
 
       <p>
         Note: Please be patient while the GIF is been creating, approx 10-30 sec. The size of the GIF should be less 10 MB.
