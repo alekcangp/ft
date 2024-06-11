@@ -23,7 +23,7 @@ export default {
     initialConfig: {
         gif: 'https://i.postimg.cc/fLRwTKnF/roboto.gif',
         label: 'VIEW',
-        link: 'https://www.youtube.com/watch?v=DYCIlghl5rI',
+        link: 'https://www.youtube.com/watch?v=DYCIlghl5rI#t=10',
     },
     requiresValidation: false,
 } satisfies BaseTemplate

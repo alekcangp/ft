@@ -88,7 +88,7 @@ export default function Inspector() {
                 />
                 <Input
                     className="text-lg"
-                    placeholder="Button link (default: video url)"
+                    placeholder="Button link (default: Video URL)"
                     ref={inputButtonLink}
                 />
                 Console: <textarea style={{ color: '#00FFFF' }} ref={logs}></textarea>
@@ -104,7 +104,7 @@ export default function Inspector() {
                             fps: inputFps.current?.value || confDefault.fps,
                             scale: inputScale.current?.value || confDefault.scale,
                             label: inputButtonLabel.current?.value || confDefault.label,
-                            link: inputButtonLink.current?.value || inputVideoUrl.current?.value,
+                            link: inputButtonLink.current?.value || inputVideoUrl.current?.value + '#t=' + inputStart.current?.value,
                         }
 
                         //updateConfig({ gif: confDefault.gif });
@@ -153,7 +153,7 @@ export default function Inspector() {
                     inputFps.current.value = config.fps || confDefault.fps
                     inputScale.current.value = config.scale || confDefault.scale
                     inputButtonLabel.current.value = config.label || confDefault.label
-                    inputButtonLink.current.value = config.link || confDefault.video
+                    inputButtonLink.current.value = config.link || confDefault.video + '#t=' + confDefault.start
                 }}
             >
                 Paste pre-saved
