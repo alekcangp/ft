@@ -133,7 +133,7 @@ export default function Inspector() {
                                 link: params.link,
                             })
                         } catch (e) {
-                            logs.current.value = 'Something went wrong. Check params and try again.'
+                            logs.current.value = `Something went wrong. Check params and try again. ${e}`
                         }
                     }}
                     className="w-full bg-border hover:bg-secondary-border text-primary"
