@@ -88,7 +88,7 @@ export default function Inspector() {
                 />
                 <Input
                     className="text-lg"
-                    placeholder="Button link (default: Video URL)"
+                    placeholder="Button link (default: Video URL with a specific start time)"
                     ref={inputButtonLink}
                 />
                 Console: <textarea style={{ color: '#00FFFF' }} ref={logs}></textarea>
