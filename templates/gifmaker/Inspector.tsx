@@ -154,6 +154,8 @@ export default function Inspector() {
                     inputScale.current.value = config.scale || confDefault.scale
                     inputButtonLabel.current.value = config.label || confDefault.label
                     inputButtonLink.current.value = config.link || confDefault.video + '#t=' + confDefault.start
+
+                    logs.current.value = 'Success!'
                 }}
             >
                 Paste pre-saved
