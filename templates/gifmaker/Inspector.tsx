@@ -108,7 +108,7 @@ export default function Inspector() {
                         }
 
                         //updateConfig({ gif: confDefault.gif });
-                        logs.current.value = 'Downloading video and making Gif. Please waiting . . .'
+                        logs.current.value = 'Downloading video and creating Gif. Please, wait . . .'
 
                         //fetch gif url ...
                         try {
