@@ -119,7 +119,7 @@ export default function Inspector() {
                             console.log(data.url)
 
                             if (data.url == confDefault.gif) {
-                                logs.current.value = `Something went wrong. Check params and try again. ${data.e}`
+                                logs.current.value = 'Something went wrong. Check params and try again.'
                             } else {
                                 logs.current.value = `Complited! ${data.url}`
                             }
