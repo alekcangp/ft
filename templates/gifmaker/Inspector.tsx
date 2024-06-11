@@ -179,7 +179,7 @@ export default function Inspector() {
                         scale: null,
                     })
 
-                    logs.current.value = 'Template has been reseted.'
+                    logs.current.value = 'The frame has been reseted.'
                 }}
             >
                 Reset
