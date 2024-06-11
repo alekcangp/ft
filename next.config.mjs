@@ -8,14 +8,7 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    images: {
-        remotePatterns: [
-            {
-                protocol: 'https',
-                hostname: process.env.NEXT_PUBLIC_CDN_HOST.split('//')[1],
-            },
-        ],
-    },
+   
     experimental: {
         serverActions: {
             bodySizeLimit: '10mb',
