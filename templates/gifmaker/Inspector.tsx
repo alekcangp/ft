@@ -145,6 +145,7 @@ export default function Inspector() {
             <Button
                 className="w-full"
                 onClick={() => {
+
                     inputVideoUrl.current.value = config.video || confDefault.video
                     inputStart.current.value = config.start || confDefault.start
                     inputFinish.current.value = config.finish || confDefault.finish
@@ -153,7 +154,7 @@ export default function Inspector() {
                     inputFps.current.value = config.fps || confDefault.fps
                     inputScale.current.value = config.scale || confDefault.scale
                     inputButtonLabel.current.value = config.label || confDefault.label
-                    inputButtonLink.current.value = config.link || confDefault.video + '#t=' + confDefault.start
+                    inputButtonLink.current.value = config.link || confDefault.video + '#t=' + confDefault.start;
 
                     logs.current.value = 'Success!'
                 }}
