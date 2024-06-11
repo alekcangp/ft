@@ -31,7 +31,7 @@ export default function Inspector() {
   const inputScale = useRef<HTMLInputElement>(null);
   const inputButtonLabel = useRef<HTMLInputElement>(null);
   const inputButtonLink = useRef<HTMLInputElement>(null);
-  const status = useRef("Waiting for user...");
+  const logs = useRef(null);
 
   const confDefault = {
     gif: "https://i.postimg.cc/fLRwTKnF/roboto.gif",
@@ -108,11 +108,12 @@ export default function Inspector() {
           ref={inputButtonLink}
         />
 
-        <h1>Status: {status.current}</h1>
+        Console: <textarea style={{color: '#00FFFF'}} ref={logs}></textarea>
 
         <Button
           onClick={async () => {
-            //  updateConfig({ gif: confDefault.gif });
+            
+          
 
             const params = {
               video: inputVideoUrl.current?.value || confDefault.video,
@@ -127,10 +128,11 @@ export default function Inspector() {
                 inputButtonLink.current?.value || inputVideoUrl.current?.value,
             };
 
-            updateConfig({ gif: confDefault.gif });
-            status.current = "Downloading video and making Gif...";
-
-            //fetch gif url ...
+            
+ //updateConfig({ gif: confDefault.gif });
+ logs.current.value = "Downloading video and making Gif. Please waiting . . .";
+           
+ //fetch gif url ...
             try {
               const resp = await fetch(
                 `https://87.251.66.40/api?url=${params.video}&start=${params.start}&finish=${params.finish}&caption="${params.caption}"&fontsize=${params.fontsize}&fps=${params.fps}&scale=${params.scale}`,
@@ -138,7 +140,7 @@ export default function Inspector() {
               const data = await resp.json();
               console.log(data.url);
 
-              status.current = `Complited! ${data.url}`;
+              logs.current.value = `Complited! ${data.url}`;
 
               updateConfig({
                 gif: data.url,
@@ -153,7 +155,7 @@ export default function Inspector() {
                 link: params.link,
               });
             } catch (e) {
-              status.current =
+              logs.current.value =
                 "Something went wrong. Check params and try again.";
             }
           }}
@@ -162,6 +164,7 @@ export default function Inspector() {
           Create GIF
         </Button>
       </div>
+
       <Button
         className="w-full"
         onClick={() => {
@@ -196,7 +199,7 @@ export default function Inspector() {
             scale: null,
           });
 
-          status.current = "Template has been reseted.";
+          logs.current.value = "Template has been reseted.";
         }}
       >
         Reset
