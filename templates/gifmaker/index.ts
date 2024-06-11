@@ -13,7 +13,7 @@ export interface State extends BaseState {}
 
 export default {
   name: "GIF Maker",
-  description: "Make GIFs/Trailers from YouTube",
+  description: "Create a GIF/Trailer Frame from YouTube.",
   creatorFid: "416810",
   creatorName: "alekcangp",
   cover,

@@ -50,8 +50,10 @@ export default function Inspector() {
 
       <h1 className="text-lg font-semibold">GIF Maker</h1>
 
+      <p>Simple hit 'Create GIF' button.</p>
+
       <p>
-        Note: Please be patient while the GIF is been creating, approx 10-30 sec. The size of the GIF should be less 10 MB.
+        Note: Please be patient while the GIF is been creating, approx 10-30 sec. The size of the GIF should be less 10 MB to publish to Farcaster.
       </p>
 
       <h3 className="text-lg font-semibold">Enter parameters</h3>
