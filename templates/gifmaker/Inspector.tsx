@@ -42,7 +42,7 @@ export default function Inspector() {
 
             <p>
                 Note: Please be patient while the GIF is been creating, approx 10-30 sec. The size
-                of the GIF should be less 10 MB to publish to Farcaster. The recommended video length < 30 min.
+                of the GIF should be less 10 MB to publish to Farcaster. The recommended video length is less 30 min.
             </p>
 
             <h3 className="text-lg font-semibold">Enter parameters</h3>
