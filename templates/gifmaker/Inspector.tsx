@@ -1,9 +1,11 @@
 'use client'
 import { Button } from '@/components/shadcn/Button'
 import { Input } from '@/components/shadcn/Input'
-import { useFrameConfig, useFrameId } from '@/sdk/hooks'
+import { useFrameConfig, useFrameId, useUploadImage } from '@/sdk/hooks'
 import { useRef } from 'react'
 import type { Config } from '.'
+import { FFmpeg } from '@ffmpeg/ffmpeg'
+import { fetchFile, toBlobURL } from '@ffmpeg/util'
 
 export default function Inspector() {
     const frameId = useFrameId()
