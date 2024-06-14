@@ -14,7 +14,7 @@ export default function Inspector() {
     const videoRef = useRef<HTMLImageElement | null>(null)
 
     const load = async () => {
-        
+        logs.current.value = 'Downloading video engine . . .'
         const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
         const ffmpeg = ffmpegRef.current
         // toBlobURL is used to bypass CORS issue, urls with the same
@@ -23,17 +23,19 @@ export default function Inspector() {
           coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
           wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm')
         })
+        logs.current.value = 'Ready!'
       }
 
       setTimeout(load,1000)
 
       const transcode = async () => {
-     
+        logs.current.value = 'Downloading video file . . .'
         const ffmpeg = ffmpegRef.current
         // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
         await ffmpeg.writeFile('input.avi', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/video-15s.avi'))
       //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
         await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
+        logs.current.value = 'Creating GIF . . .'
         ffmpeg.exec(["-i","input.avi","-t","2","-vf","drawtext=fontfile=arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2", "output.gif"]);
 
         const data = (await ffmpeg.readFile('output.gif')) as any
@@ -45,7 +47,8 @@ export default function Inspector() {
         })
         const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
         console.log(gifUrl);
-
+        logs.current.value = `Ready! Gif's url: ${gifUrl}`
+        
         if (videoRef.current){
            // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
            // console.log(urll)
