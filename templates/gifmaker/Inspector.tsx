@@ -12,9 +12,11 @@ export default function Inspector() {
     const [config, updateConfig] = useFrameConfig<Config>()
     const uploadImage = useUploadImage()
     const videoRef = useRef<HTMLImageElement | null>(null)
-
+    const logs = useRef(null)
+    const ffmpegRef = useRef(new FFmpeg())
+ 
     const load = async () => {
-        logs.current.value = 'Downloading video engine . . .'
+       logs.current.value = 'Downloading video engine . . .'
         const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
         const ffmpeg = ffmpegRef.current
         // toBlobURL is used to bypass CORS issue, urls with the same
@@ -26,9 +28,10 @@ export default function Inspector() {
         logs.current.value = 'Ready!'
       }
 
-      setTimeout(load,1000)
+      setTimeout(load,3000)
 
       const transcode = async () => {
+        try {
         logs.current.value = 'Downloading video file . . .'
         const ffmpeg = ffmpegRef.current
         // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
@@ -47,14 +50,17 @@ export default function Inspector() {
         })
         const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
         console.log(gifUrl);
-        logs.current.value = `Ready! Gif's url: ${gifUrl}`
-        
+        logs.current.value = `Ready! Gif's URL: ${gifUrl}`
+
         if (videoRef.current){
            // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
            // console.log(urll)
             videoRef.current.src = gifUrl
           
         }
+    }catch(e) {
+        logs.current.value = `Something went wrong. Try again: ${JSON.stringify(e)}`
+    }
              
       }
 
@@ -69,8 +75,7 @@ export default function Inspector() {
     const inputScale = useRef<HTMLInputElement>(null)
     const inputButtonLabel = useRef<HTMLInputElement>(null)
     const inputButtonLink = useRef<HTMLInputElement>(null)
-    const logs = useRef(null)
-    const ffmpegRef = useRef(new FFmpeg())
+    
 
     const confDefault = {
         gif: 'https://i.postimg.cc/fLRwTKnF/roboto.gif',
