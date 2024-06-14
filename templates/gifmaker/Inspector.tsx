@@ -34,7 +34,7 @@ export default function Inspector() {
 
       const transcode = async () => {
         try {
-            logs.current.value = 'Downloading video file . . .'
+            logs.current.value = 'Downloading video file and creating GIF . . .'
               const ffmpeg = ffmpegRef.current
               const ty = file.type.substring(file.type.indexOf('/')+1)
               // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
@@ -43,28 +43,26 @@ export default function Inspector() {
             // await ffmpeg.writeFile('input.avi', await fetchFile(vurl))
             //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
               await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
-              logs.current.value = 'Creating GIF . . .'
-              ffmpeg.exec(["-i",`input.${ty}`,"-t","2","-vf","drawtext=fontfile=arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2", "output.gif"]);
-      
+              ffmpeg.exec(["-i",`input.${ty}`,"-ss","0","-t","10","-r","10","-vf","scale=-1:250,drawtext=fontfile=arial.ttf:text='sdfdsfsd sdfsd':fontcolor=green:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2","output.gif"]); //:x=(w-text_w)/2:y=(h-text_h)/2
               const data = (await ffmpeg.readFile('output.gif')) as any
               var b64 = Buffer.from(data).toString('base64');
-      
-              const { filePath } = await uploadImage({
-                 base64String: b64,
-                  contentType: 'image/gif',
-              })
-              const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
-              console.log(gifUrl);
-               logs.current.value = `Ready! Gif's url: ${gifUrl}`
+             
+             // const { filePath } = await uploadImage({
+             //    base64String: b64,
+              //    contentType: 'image/gif',
+             // })
+             // const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
+             // console.log(gifUrl);
+               logs.current.value = `Done!`;// Gif's url: ${gifUrl}`
       
               if (imageRef.current){
-                 // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
+                  const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
                  // console.log(urll)
-                  imageRef.current.src = gifUrl
+                  imageRef.current.src = urll
                 
               }
           }catch(e) {
-              logs.current.value = `Something went wrong. Try again: ${JSON.stringify(e)}`
+              logs.current.value = `Something went wrong: ${JSON.stringify(e)}`
           }
               
              
