@@ -106,17 +106,13 @@ export default function Inspector() {
         <div className="w-full h-full space-y-4">
             <h1 className="text-lg font-semibold">GIF Maker</h1>
 
-            <p>Simple hit 'Create GIF' button.</p>
 
-            <p>
-                Note: The created gif's size should be less 10 MB to publish to Farcaster. The recommended video size is less 30MB.
-            </p>
             <video ref={videoRef} width="100%" controls></video>
             <label
                         htmlFor="uploadFile"
                         className="flex cursor-pointer items-center justify-center rounded-md  py-1.5 px-2 text-md font-medium bg-border  text-primary hover:bg-secondary-border"
                     >
-                        Upload a file
+                        Upload a video file
                         <Input
                             id="uploadFile"
                             accept="video/*"
@@ -183,7 +179,9 @@ export default function Inspector() {
                  Preview
                 </button>
                 Console: <textarea style={{ color: '#00FFFF' }} ref={logs}></textarea>
-                
+                <p>
+                Note: The size of the gif image must be less 10 MB.
+            </p>
                 <Button
                     onClick={async () => {
                         const params = {
