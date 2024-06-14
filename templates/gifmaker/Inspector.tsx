@@ -10,6 +10,22 @@ import { fetchFile, toBlobURL } from '@ffmpeg/util'
 export default function Inspector() {
     const frameId = useFrameId()
     const [config, updateConfig] = useFrameConfig<Config>()
+    const uploadImage = useUploadImage()
+    const videoRef = useRef<HTMLImageElement | null>(null)
+
+    const load = async () => {
+        
+        const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
+        const ffmpeg = ffmpegRef.current
+        // toBlobURL is used to bypass CORS issue, urls with the same
+        // domain can be used directly.
+        await ffmpeg.load({
+          coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
+          wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm')
+        })
+      }
+
+      setTimeout(load,1000)
 
     const { gif, video, link, label, start, finish, caption, fontsize, fps, scale } = config
 
@@ -23,6 +39,7 @@ export default function Inspector() {
     const inputButtonLabel = useRef<HTMLInputElement>(null)
     const inputButtonLink = useRef<HTMLInputElement>(null)
     const logs = useRef(null)
+    const ffmpegRef = useRef(new FFmpeg())
 
     const confDefault = {
         gif: 'https://i.postimg.cc/fLRwTKnF/roboto.gif',
