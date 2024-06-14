@@ -53,7 +53,7 @@ export default function Inspector() {
              // })
              // const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
              // console.log(gifUrl);
-               logs.current.value = `Done!`;// Gif's url: ${gifUrl}`
+               logs.current.value = `Successfully!`;// Gif's url: ${gifUrl}`
       
               if (imageRef.current){
                   const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
@@ -178,7 +178,8 @@ export default function Inspector() {
                 </button>
                 Console: <textarea style={{ color: '#00FFFF' }} ref={logs}></textarea>
                 <p>
-                Note: The size of the gif image must be less 10 MB.
+                Note: The recommended duration of the gif is less 10 sec.
+
             </p>
                 <Button
                     onClick={async () => {
