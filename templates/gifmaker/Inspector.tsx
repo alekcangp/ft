@@ -11,7 +11,8 @@ export default function Inspector() {
     const frameId = useFrameId()
     const [config, updateConfig] = useFrameConfig<Config>()
     const uploadImage = useUploadImage()
-    const videoRef = useRef<HTMLImageElement | null>(null)
+    const imageRef = useRef<HTMLImageElement | null>(null)
+    const videoRef = useRef<HTMLVideoElement | null>(null)
     const logs = useRef(null)
     const ffmpegRef = useRef(new FFmpeg())
     const [file, setFile] = useState<File>()
@@ -53,10 +54,10 @@ export default function Inspector() {
         console.log(gifUrl);
         logs.current.value = `Ready! Gif's URL: ${gifUrl}`
 
-        if (videoRef.current){
+        if (imageRef.current){
            // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
            // console.log(urll)
-            videoRef.current.src = gifUrl
+            imageRef.current.src = gifUrl
           
         }
     }catch(e) {
@@ -93,9 +94,8 @@ export default function Inspector() {
     
     useEffect(() => {
         if (!file) return
-
-       console.log(file)
-      // transcode()
+        videoRef.current.src = URL.createObjectURL(file); 
+        console.log(file.name)
     }, [file])
 
     return (
@@ -107,7 +107,7 @@ export default function Inspector() {
             <p>
                 Note: The created gif's size should be less 10 MB to publish to Farcaster. The recommended video size is less 30MB.
             </p>
-
+            <video ref={videoRef} width="100%" controls></video>
             <label
                         htmlFor="uploadFile"
                         className="flex cursor-pointer items-center justify-center rounded-md  py-1.5 px-2 text-md font-medium bg-border  text-primary hover:bg-secondary-border"
@@ -173,7 +173,7 @@ export default function Inspector() {
                     placeholder="Button link (default: Video URL + Start time)"
                     ref={inputButtonLink}
                 />
-                <img ref={videoRef} ></img>
+                <img ref={imageRef} ></img>
                 <br />
                 <button onClick={transcode} className="bg-green-500 hover:bg-green-700 text-white py-3 px-6 rounded">
                  Preview
