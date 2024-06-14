@@ -34,35 +34,39 @@ export default function Inspector() {
 
       const transcode = async () => {
         try {
-        logs.current.value = 'Downloading video file . . .'
-        const ffmpeg = ffmpegRef.current
-        // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
-        await ffmpeg.writeFile('input.avi', await fetchFile(file))
-      //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
-        await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
-        logs.current.value = 'Creating GIF . . .'
-        ffmpeg.exec(["-i","input.avi","-t","2","-vf","drawtext=fontfile=arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2", "output.gif"]);
-
-        const data = (await ffmpeg.readFile('output.gif')) as any
-        var b64 = Buffer.from(data).toString('base64');
-
-        const { filePath } = await uploadImage({
-           base64String: b64,
-            contentType: 'image/gif',
-        })
-        const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
-        console.log(gifUrl);
-        logs.current.value = `Ready! Gif's URL: ${gifUrl}`
-
-        if (imageRef.current){
-           // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
-           // console.log(urll)
-            imageRef.current.src = gifUrl
-          
-        }
-    }catch(e) {
-        logs.current.value = `Something went wrong. Try again: ${JSON.stringify(e)}`
-    }
+            logs.current.value = 'Downloading video file . . .'
+              const ffmpeg = ffmpegRef.current
+              const ty = file.type.substring(file.type.indexOf('/')+1)
+              // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
+              await ffmpeg.writeFile(`input.${ty}`, await fetchFile(file))
+            // const vurl = await toBlobURL('https://file-examples.com/wp-content/storage/2018/04/file_example_AVI_480_750kB.avi', 'video/avi')
+            // await ffmpeg.writeFile('input.avi', await fetchFile(vurl))
+            //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
+              await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
+              logs.current.value = 'Creating GIF . . .'
+              ffmpeg.exec(["-i",`input.${ty}`,"-t","2","-vf","drawtext=fontfile=arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2", "output.gif"]);
+      
+              const data = (await ffmpeg.readFile('output.gif')) as any
+              var b64 = Buffer.from(data).toString('base64');
+      
+              const { filePath } = await uploadImage({
+                 base64String: b64,
+                  contentType: 'image/gif',
+              })
+              const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST+'/'+filePath;
+              console.log(gifUrl);
+               logs.current.value = `Ready! Gif's url: ${gifUrl}`
+      
+              if (imageRef.current){
+                 // const urll = URL.createObjectURL(new Blob([data.buffer], { type: 'image/gif' }));
+                 // console.log(urll)
+                  imageRef.current.src = gifUrl
+                
+              }
+          }catch(e) {
+              logs.current.value = `Something went wrong. Try again: ${JSON.stringify(e)}`
+          }
+              
              
       }
 
@@ -115,7 +119,7 @@ export default function Inspector() {
                         Upload a file
                         <Input
                             id="uploadFile"
-                            accept="video/avi"
+                            accept="video/*"
                             type="file"
                             onChange={(e) => {
                                 if (e.target.files?.[0]) {
