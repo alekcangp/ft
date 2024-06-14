@@ -2,7 +2,7 @@
 import { Button } from '@/components/shadcn/Button'
 import { Input } from '@/components/shadcn/Input'
 import { useFrameConfig, useFrameId, useUploadImage } from '@/sdk/hooks'
-import { useRef } from 'react'
+import { useRef,useState,useEffect } from 'react'
 import type { Config } from '.'
 import { FFmpeg } from '@ffmpeg/ffmpeg'
 import { fetchFile, toBlobURL } from '@ffmpeg/util'
@@ -14,9 +14,10 @@ export default function Inspector() {
     const videoRef = useRef<HTMLImageElement | null>(null)
     const logs = useRef(null)
     const ffmpegRef = useRef(new FFmpeg())
+    const [file, setFile] = useState<File>()
  
     const load = async () => {
-       logs.current.value = 'Downloading video engine . . .'
+      
         const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/umd'
         const ffmpeg = ffmpegRef.current
         // toBlobURL is used to bypass CORS issue, urls with the same
@@ -28,14 +29,14 @@ export default function Inspector() {
         logs.current.value = 'Ready!'
       }
 
-      setTimeout(load,3000)
+      setTimeout(load,1000)
 
       const transcode = async () => {
         try {
         logs.current.value = 'Downloading video file . . .'
         const ffmpeg = ffmpegRef.current
         // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
-        await ffmpeg.writeFile('input.avi', await fetchFile('https://file-examples.com/wp-content/storage/2018/04/file_example_AVI_480_750kB.avi'))
+        await ffmpeg.writeFile('input.avi', await fetchFile(file))
       //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
         await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
         logs.current.value = 'Creating GIF . . .'
@@ -89,6 +90,14 @@ export default function Inspector() {
         label: 'VIEW',
     }
 
+    
+    useEffect(() => {
+        if (!file) return
+
+       console.log(file)
+      // transcode()
+    }, [file])
+
     return (
         <div className="w-full h-full space-y-4">
             <h1 className="text-lg font-semibold">GIF Maker</h1>
@@ -96,9 +105,27 @@ export default function Inspector() {
             <p>Simple hit 'Create GIF' button.</p>
 
             <p>
-                Note: Please be patient while the GIF is been creating, approx 10-30 sec. The size
-                of the GIF should be less 10 MB to publish to Farcaster. The recommended video length is less 30 min.
+                Note: The created gif's size should be less 10 MB to publish to Farcaster. The recommended video size is less 30MB.
             </p>
+
+            <label
+                        htmlFor="uploadFile"
+                        className="flex cursor-pointer items-center justify-center rounded-md  py-1.5 px-2 text-md font-medium bg-border  text-primary hover:bg-secondary-border"
+                    >
+                        Upload a file
+                        <Input
+                            id="uploadFile"
+                            accept="video/avi"
+                            type="file"
+                            onChange={(e) => {
+                                if (e.target.files?.[0]) {
+                                    setFile(e.target.files?.[0])
+                                    
+                                }
+                            }}
+                            className="sr-only"
+                        />
+                    </label>
 
             <h3 className="text-lg font-semibold">Enter parameters</h3>
 
