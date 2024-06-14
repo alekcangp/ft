@@ -35,7 +35,7 @@ export default function Inspector() {
         logs.current.value = 'Downloading video file . . .'
         const ffmpeg = ffmpegRef.current
         // u can use 'https://ffmpegwasm.netlify.app/video/video-15s.avi' to download the video to public folder for testing
-        await ffmpeg.writeFile('input.avi', await fetchFile('https://raw.githubusercontent.com/ffmpegwasm/testdata/master/video-15s.avi'))
+        await ffmpeg.writeFile('input.avi', await fetchFile('https://file-examples.com/wp-content/storage/2018/04/file_example_AVI_480_750kB.avi'))
       //"-vf","drawtext=fontfile=/arial.ttf:text=Artist:fontcolor=white:fontsize=24:x=(w-text_w)/2:y=(h-text_h)/2",
         await ffmpeg.writeFile('arial.ttf', await fetchFile('https://raw.githubusercontent.com/alekcangp/frametrain/master/arial.ttf'))
         logs.current.value = 'Creating GIF . . .'
