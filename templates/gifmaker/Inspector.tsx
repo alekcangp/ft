@@ -88,7 +88,7 @@ export default function Inspector() {
 				'-t',
 				params.duration,
 				'-r',
-				'10',
+				'9',
 				'-vf',
 				`scale=-1:250,drawtext=fontfile=arial.ttf:text='${params.caption}':fontcolor=${params.fontcolor}:fontsize=${params.fontsize}:x=(w-text_w)/2:y=(h-text_h)-${params.y}`,
 				'output.gif',
