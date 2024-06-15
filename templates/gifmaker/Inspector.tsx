@@ -90,7 +90,7 @@ export default function Inspector() {
 				'-r',
 				'9',
 				'-vf',
-				`scale=-1:230,drawtext=fontfile=arial.ttf:text='${params.caption}':fontcolor=${params.fontcolor}:fontsize=${params.fontsize}:x=(w-text_w)/2:y=(h-text_h)-${params.y}`,
+				`scale=-1:220,drawtext=fontfile=arial.ttf:text='${params.caption}':fontcolor=${params.fontcolor}:fontsize=${params.fontsize}:x=(w-text_w)/2:y=(h-text_h)-${params.y}`,
 				'output.gif',
 			]);
 
