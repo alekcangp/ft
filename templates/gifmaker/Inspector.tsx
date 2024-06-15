@@ -57,7 +57,7 @@ export default function Inspector() {
 
 
 	//CRATE GIF FROM PARAMS AND PREVIEW
-	const data = null;
+	let data = null;
 	let params = {};
 
 	const transcode = async () => {
