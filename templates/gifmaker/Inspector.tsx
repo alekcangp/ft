@@ -34,7 +34,7 @@ export default function Inspector() {
 		});
 	};
 
-	setTimeout(load, 1000);
+	//setTimeout(load, 1000);
 
 	const inputStart = useRef<HTMLInputElement>(null);
 	const inputDuration = useRef<HTMLInputElement>(null);
@@ -140,7 +140,8 @@ export default function Inspector() {
 	}, [file]);
 
 	useEffect(() => {
-		updateConfig({time:new Date().toJSON()})
+		updateConfig({time:new Date().toJSON()});
+		load()
 		},[])
 
 	return (
