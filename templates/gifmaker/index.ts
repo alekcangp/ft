@@ -22,8 +22,15 @@ export default {
     functions,
     initialConfig: {
         gif: 'https://iili.io/d9WJ44I.gif',
+        start: '0',
+        duration: '1',
+        caption: 'Hello from FrameTrain',
+        y: '20',
+        fontSize: '30',
+        fontColor: 'white',
+        fontStyle: 'ABeeZee',
         label: 'LINK',
-        link: 'https://frametra.in'
+        link: 'https://frametra.in',
     },
     requiresValidation: false,
 } satisfies BaseTemplate
