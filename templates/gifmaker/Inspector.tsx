@@ -1,7 +1,14 @@
 'use client';
 import { Button } from '@/components/shadcn/Button';
 import { Input } from '@/components/shadcn/Input';
-import { ColorPicker } from '@/sdk/components'
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from '@/components/shadcn/Select'
+import { ColorPicker, FontStylePicker } from '@/sdk/components'
 import { useFrameConfig, useFrameId, useUploadImage } from '@/sdk/hooks';
 import { useRef, useState, useEffect } from 'react';
 import type { Config } from '.';
@@ -31,10 +38,8 @@ export default function Inspector() {
 				`${baseURL}/ffmpeg-core.wasm`,
 				'application/wasm',
 			),
-		});
+		});	
 	};
-
-	//setTimeout(load, 1000);
 
 	const inputStart = useRef<HTMLInputElement>(null);
 	const inputDuration = useRef<HTMLInputElement>(null);
@@ -44,12 +49,21 @@ export default function Inspector() {
 	const inputButtonLabel = useRef<HTMLInputElement>(null);
 	const inputButtonLink = useRef<HTMLInputElement>(null);
 
+	const fontStyles = [
+		{name:'ABeeZee',url:'https://cdn.jsdelivr.net/npm/@fontsource/abeezee@5.0.13/files/abeezee-latin-400-normal.woff'},
+		{name:'Roboto',url:'https://cdn.jsdelivr.net/npm/@fontsource/roboto@5.0.13/files/roboto-latin-400-normal.woff'},
+		{name:'Lobster',url:'https://cdn.jsdelivr.net/npm/@fontsource/lobster@5.0.20/files/lobster-latin-400-normal.woff'},
+		{name:'Orbitron',url:'https://cdn.jsdelivr.net/npm/@fontsource/orbitron@5.0.19/files/orbitron-latin-400-normal.woff'},
+		{name:'Jaro',url:'https://cdn.jsdelivr.net/npm/@fontsource/jaro@5.0.1/files/jaro-latin-400-normal.woff'},
+	]
+	
 	const confDefault = {
 		start: '0',
 		duration: '10',
 		caption: 'Hello from FrameTrain',
 		fontSize: '30',
 		fontColor: 'white',
+		fontStyle: fontStyles[0].url,
 		y: '20',
 		label: 'Do It',
 		link: 'https://frametra.in',
@@ -70,6 +84,7 @@ export default function Inspector() {
 				y: inputY.current?.value.toString() || confDefault.y,
 				fontSize: inputFontSize.current?.value.toString() || confDefault.fontSize,
 				fontColor: config.params?.fontColor || confDefault.fontColor,
+				fontStyle: config.params?.fontStyle || confDefault.fontStyle,
 				label: inputButtonLabel.current?.value || confDefault.label,
 				link: inputButtonLink.current?.value || confDefault.link,
 			};
@@ -77,8 +92,8 @@ export default function Inspector() {
 			const ty = file.type.substring(file.type.indexOf('/') + 1);
 			await ffmpeg.writeFile(`input.${ty}`, await fetchFile(file));
 			await ffmpeg.writeFile(
-				'ABeeZee.woff',
-				await fetchFile('https://cdn.jsdelivr.net/npm/@fontsource/abeezee@5.0.13/files/abeezee-latin-400-normal.woff'),
+				'font.woff',
+				await fetchFile(params.fontStyle),
 			); 
 			ffmpeg.exec([
 				'-i',
@@ -90,7 +105,7 @@ export default function Inspector() {
 				'-r',
 				'8',
 				'-vf',
-				`scale=-1:210,drawtext=fontfile=ABeeZee.woff:text='${params.caption}':fontcolor=${params.fontColor}:bordercolor=black:borderw=1:fontsize=${params.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${params.y}`,
+				`scale=-1:210,drawtext=fontfile=font.woff:text='${params.caption}':fontcolor=${params.fontColor}:bordercolor=black:borderw=1:fontsize=${params.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${params.y}`,
 				'output.gif',
 			]);
 
@@ -140,10 +155,9 @@ export default function Inspector() {
 	}, [file]);
 
 	useEffect(() => {
-		updateConfig({time:new Date().toJSON()});
-		load()
-		},[])
-
+		updateConfig({time:new Date().toJSON()})
+		setTimeout(load, 1000);
+	},[])
 	return (
     <div className="w-full h-full space-y-4">
         <video ref={videoRef} width="100%" controls></video>
@@ -166,7 +180,7 @@ export default function Inspector() {
         </label>
 
         <div className="flex flex-col gap-2 ">
-			<h2 className="text-lg font-bold">Start Time</h2>
+            <h2 className="text-lg font-bold">Start Time</h2>
             <Input className="text-lg" placeholder="Seconds or mm:ss" ref={inputStart} />
             <h2 className="text-lg font-bold">Duration</h2>
             <Input className="text-lg" placeholder="GIF duration in seconds" ref={inputDuration} />
@@ -189,6 +203,29 @@ export default function Inspector() {
                     })
                 }
             />
+			<h2 className="text-lg font-bold">Font Style</h2>
+			<Select
+                    defaultValue={fontStyles[0].url}
+                    onValueChange={(value: string) => 
+						updateConfig({
+							params: {
+								...config.params,
+								fontStyle: value,
+						},
+					})
+				}
+            >
+                <SelectTrigger>
+                    <SelectValue placeholder="Aspect Ratio" />
+                </SelectTrigger>
+                <SelectContent>
+                    <SelectItem value={fontStyles[0].url}>{fontStyles[0].name}</SelectItem>
+                    <SelectItem value={fontStyles[1].url}>{fontStyles[1].name}</SelectItem>
+					<SelectItem value={fontStyles[2].url}>{fontStyles[2].name}</SelectItem>
+					<SelectItem value={fontStyles[3].url}>{fontStyles[3].name}</SelectItem>
+					<SelectItem value={fontStyles[4].url}>{fontStyles[4].name}</SelectItem>
+                </SelectContent>
+            </Select>
             <h2 className="text-lg font-bold">Button Label</h2>
             <Input className="text-lg" ref={inputButtonLabel} />
             <h2 className="text-lg font-bold">Button Link</h2>
