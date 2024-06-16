@@ -271,12 +271,10 @@ export default function Inspector() {
                     onClick={() => {
                         const { params } = config
                         inputStart.current.value = config.params?.start || confDefault.start
-                        inputDuration.current.value =
-                            config.params?.duration || confDefault.duration
+                        inputDuration.current.value = config.params?.duration || confDefault.duration
                         inputCaption.current.value = config.params?.caption || confDefault.caption
                         inputY.current.value = config.params?.y || confDefault.y
-                        inputFontSize.current.value =
-                            config.params?.fontSize || confDefault.fontSize
+                        inputFontSize.current.value = config.params?.fontSize || confDefault.fontSize
                         inputButtonLabel.current.value = config.params?.label || confDefault.label
                         inputButtonLink.current.value = config.params?.link || confDefault.link
                     }}
