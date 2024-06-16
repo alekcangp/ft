@@ -156,7 +156,7 @@ export default function Inspector() {
 
 	useEffect(() => {
 		updateConfig({time:new Date().toJSON()})
-		setTimeout(load, 1000);
+		load();
 	},[])
 	return (
     <div className="w-full h-full space-y-4">
