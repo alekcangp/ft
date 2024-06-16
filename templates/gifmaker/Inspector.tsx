@@ -82,7 +82,17 @@ export default function Inspector() {
     }, [file])
 
     useEffect(() => {
-        if (!file) return
+        if (
+            !file ||
+            !config.start ||
+            !config.duration ||
+            !config.caption ||
+            !config.y ||
+            !config.fontSize ||
+            !config.fontStyle ||
+            !config.fontColor
+        )
+            return
         transcode()
     }, [
         file,
@@ -96,9 +106,16 @@ export default function Inspector() {
     ])
 
     useEffect(() => {
-        updateConfig({ time: new Date().toJSON() })
+        updateConfig({
+            gif: 'https://iili.io/d9WJ44I.gif',
+            fontColor: 'white',
+            fontStyle: 'ABeeZee',
+            label: 'LINK',
+            link: 'https://frametra.in',
+        })
         load()
     }, [])
+
     return (
         <div className="w-full h-full space-y-4">
             <video ref={videoRef} width="100%" controls></video>
@@ -120,7 +137,7 @@ export default function Inspector() {
                 />
             </label>
 
-            <div className="flex items-center justify-center h-3">
+            <div className="flex items-center justify-center h-7">
                 {loading && <LoaderPinwheel className="animate-spin" />}
             </div>
 
@@ -166,15 +183,14 @@ export default function Inspector() {
                 <h2 className="text-lg font-bold">Font Color</h2>
                 <ColorPicker
                     className="w-full"
-                    background={config.fontColor}
+                    background={config.fontColor || 'white'}
                     setBackground={(value: string) => updateConfig({ fontColor: value })}
                 />
                 <h2 className="text-lg font-bold">Font Style</h2>
                 <FontFamilyPicker
                     defaultValue={config.fontStyle}
-                    onSelect={(font) => updateConfig({ fontStyle: font })}
+                    onSelect={(font: string) => updateConfig({ fontStyle: font })}
                 />
-
                 <h2 className="text-lg font-bold">Button Label</h2>
                 <Input
                     className="text-lg"
@@ -187,6 +203,9 @@ export default function Inspector() {
                     defaultValue={config.link}
                     onChange={(e) => updateConfig({ link: e.target.value })}
                 />
+                <div className="flex items-center justify-center h-7">
+                    {loading && <LoaderPinwheel className="animate-spin" />}
+                </div>
             </div>
         </div>
     )
