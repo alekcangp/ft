@@ -139,6 +139,10 @@ export default function Inspector() {
 		videoRef.current.src = URL.createObjectURL(file);
 	}, [file]);
 
+	useEffect(() => {
+		updateConfig({time:new Date().toJSON()})
+		},[])
+
 	return (
     <div className="w-full h-full space-y-4">
         <video ref={videoRef} width="100%" controls></video>
