@@ -67,7 +67,7 @@ export default function Inspector() {
             })
             const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST + '/' + filePath
             updateConfig({
-                gif: gifUrl,
+                gifUrl: gifUrl,
             })
         } catch (e) {
             console.log(e)
@@ -96,7 +96,7 @@ export default function Inspector() {
         transcode()
     }, [
         file,
-        config.start,
+        config.timeStart,
         config.gifDuration,
         config.gifCaption,
         config.captionY,
@@ -107,7 +107,7 @@ export default function Inspector() {
 
     useEffect(() => {
         updateConfig({
-            gif: config.gif || 'https://iili.io/d9WJ44I.gif',
+            gifUrl: config.gifUrl || 'https://iili.io/d9WJ44I.gif',
             timeStart: config.timeStart || null,
             gifDuration: config.gifDuration || null,
             gifCaption: config.gifCaption || null,
