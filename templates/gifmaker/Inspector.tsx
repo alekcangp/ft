@@ -107,16 +107,16 @@ export default function Inspector() {
 
     useEffect(() => {
         updateConfig({
-            gifUrl: config.gifUrl || 'https://iili.io/d9WJ44I.gif',
-            timeStart: config.timeStart || null,
-            gifDuration: config.gifDuration || null,
-            gifCaption: config.gifCaption || null,
-            captionY: config.captionY || null,
-            fontSize: config.fontSize || null,
-            fontColor: config.fontColor || 'white',
-            fontStyle: config.fontStyle || 'ABeeZee',
-            buttonLabel: config.buttonLabel || 'LINK',
-            buttonLink: config.buttonLink || 'https://frametra.in',
+            gifUrl: config?.gifUrl || 'https://iili.io/d9WJ44I.gif',
+            timeStart: config?.timeStart || null,
+            gifDuration: config?.gifDuration || null,
+            gifCaption: config?.gifCaption || null,
+            captionY: config?.captionY || null,
+            fontSize: config?.fontSize || null,
+            fontColor: config?.fontColor || 'white',
+            fontStyle: config?.fontStyle || 'ABeeZee',
+            buttonLabel: config?.buttonLabel || 'LINK',
+            buttonLink: config?.buttonLink || 'https://frametra.in',
         })
         load()
     }, [])
