@@ -107,11 +107,11 @@ export default function Inspector() {
 
     useEffect(() => {
         updateConfig({
-            gif: 'https://iili.io/d9WJ44I.gif',
-            fontColor: 'white',
-            fontStyle: 'ABeeZee',
-            label: 'LINK',
-            link: 'https://frametra.in',
+            gif: config.gif || 'https://iili.io/d9WJ44I.gif',
+            fontColor: config.fontColor || 'white',
+            fontStyle: config.fontStyle || 'ABeeZee',
+            label: config.label || 'LINK',
+            link: config.link || 'https://frametra.in',
         })
         load()
     }, [])
