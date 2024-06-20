@@ -47,16 +47,16 @@ export default function Inspector() {
                 )
             )
             ffmpeg.exec([
-                '-to',
-                config.gifDuration,
+               // '-to',
+              //  config.gifDuration,
                 '-i',
                 `input.${ty}`,
-                '-ss',
-                config.timeStart,
+               // '-ss',
+               // config.timeStart,
                 '-r',
                 '8',
                 '-vf',
-                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY}`,
+                `trim=1800:1805,scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY}`,
                 'output.gif',
             ])
             const data = await ffmpeg.readFile('output.gif')
