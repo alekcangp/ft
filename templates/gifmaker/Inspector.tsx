@@ -47,10 +47,10 @@ export default function Inspector() {
                 )
             )
             ffmpeg.exec([
-                '-ss',
-                config.timeStart,
                 '-i',
                 `input.${ty}`,
+                 '-ss',
+                config.timeStart,
                 '-t',
                 config.gifDuration,
                 '-r',
