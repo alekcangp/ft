@@ -135,9 +135,9 @@ export default function Inspector() {
         updateConfig({
             gifUrl: config?.gifUrl || 'https://iili.io/d9WJ44I.gif',
             fontColor: config?.fontColor || 'white',
-            fontStyle: config?.fontStyle || '',
-            buttonLabel: config?.buttonLabel || ' ',
-            buttonLink: config?.buttonLink || '',
+            fontStyle: config?.fontStyle || 'ABeeZee',
+            buttonLabel: config?.buttonLabel || 'LINK',
+            buttonLink: config?.buttonLink || 'https://frametra.in',
         })
         load()
     }, [])
@@ -236,7 +236,7 @@ export default function Inspector() {
                 <h2 className="font-bold">Font Color</h2>
                 <ColorPicker
                     className="w-full"
-                    background={config.fontColor}
+                    background={config.fontColor || 'white'}
                     setBackground={(value: string) => updateConfig({ fontColor: value })}
                 />
                 <h2 className="font-bold">Font Style</h2>
