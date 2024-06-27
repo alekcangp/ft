@@ -236,7 +236,7 @@ export default function Inspector() {
                 <h2 className="font-bold">Font Color</h2>
                 <ColorPicker
                     className="w-full"
-                    background={config.fontColor || 'white'}
+                    background={config.fontColor}
                     setBackground={(value: string) => updateConfig({ fontColor: value })}
                 />
                 <h2 className="font-bold">Font Style</h2>
