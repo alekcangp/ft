@@ -115,20 +115,18 @@ export default function Inspector() {
             config.timeStart &&
             config.gifDuration &&
             config.gifCaption &&
-            config.fontSize &&
-            config.captionY
+            config.captionY &&
+            config.fontSize
         )
             transcode()
     }, [
-       // file,
-       // link,
         config.timeStart,
         config.gifDuration,
         config.gifCaption,
         config.captionY,
         config.fontSize,
         config.fontStyle,
-        config.fontColor
+        config.fontColor,
     ])
 
     useEffect(() => {
