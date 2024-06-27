@@ -128,14 +128,14 @@ export default function Inspector() {
         config.captionY,
         config.fontSize,
         config.fontStyle,
-        config.fontColor,
+        config.fontColor
     ])
 
     useEffect(() => {
         updateConfig({
             gifUrl: config?.gifUrl || 'https://iili.io/d9WJ44I.gif',
             fontColor: config?.fontColor || 'white',
-            fontStyle: config?.fontStyle || 'ABeeZee',
+            fontStyle: config?.fontStyle || '',
             buttonLabel: config?.buttonLabel || ' ',
             buttonLink: config?.buttonLink || '',
         })
