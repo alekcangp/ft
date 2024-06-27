@@ -70,7 +70,7 @@ export default function Inspector() {
                 '-r',
                 '8',
                 '-vf',
-                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption || ' '}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize || '0'}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY || '0'}`,
+                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption || ' '}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize || '20'}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY || '0'}`,
                 'output.gif',
             ])
 
