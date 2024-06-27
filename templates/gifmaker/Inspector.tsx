@@ -70,7 +70,7 @@ export default function Inspector() {
                 '-r',
                 '8',
                 '-vf',
-                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption || ' '}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize || '20'}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY || '0'}`,
+                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY}`,
                 'output.gif',
             ])
 
@@ -114,11 +114,9 @@ export default function Inspector() {
             ((source == 'link' && link) || (source == 'file' && file)) &&
             config.timeStart &&
             config.gifDuration &&
-            config.buttonLabel &&
-            config.buttonLink
-           // config.fontStyle &&
-           // config.fontColor &&
-            //((config.gifCaption && config.fontSize && config.captionY) || !config.gifCaption)
+            config.gifCaption &&
+            config.fontSize &&
+            config.captionY
         )
             transcode()
     }, [
@@ -131,7 +129,6 @@ export default function Inspector() {
         config.fontSize,
         config.fontStyle,
         config.fontColor,
-        config.buttonLink
     ])
 
     useEffect(() => {
@@ -140,7 +137,7 @@ export default function Inspector() {
             fontColor: config?.fontColor || 'white',
             fontStyle: config?.fontStyle || 'ABeeZee',
             buttonLabel: config?.buttonLabel || ' ',
-           // buttonLink: config?.buttonLink || 'https://frametra.in',
+            buttonLink: config?.buttonLink || '',
         })
         load()
     }, [])
@@ -160,7 +157,7 @@ export default function Inspector() {
 
             <div class="block w-full" onChange={(event) => setSource(event.target.value)}>
                 <label for="source" class="block mb-2 text-lg font-bold w-full">
-                    Video source &#8432;
+                    Video source
                 </label>
                 <select
                     id="source"
@@ -203,13 +200,13 @@ export default function Inspector() {
                     />
                 </div>
 
-                <h2 className="font-bold">Start Time &#8432;</h2>
+                <h2 className="font-bold">Start Time</h2>
                 <Input
                     placeholder="Seconds or mm:ss"
                     defaultValue={config.timeStart}
                     onChange={(e) => updateConfig({ timeStart: e.target.value })}
                 />
-                <h2 className="font-bold">Duration &#8432;</h2>
+                <h2 className="font-bold">Duration</h2>
                 <Input
                     placeholder="GIF duration in seconds"
                     defaultValue={config.gifDuration}
@@ -247,12 +244,12 @@ export default function Inspector() {
                     defaultValue={config.fontStyle}
                     onSelect={(font: string) => updateConfig({ fontStyle: font })}
                 />
-                <h2 className="font-bold">Button Label &#8432;</h2>
+                <h2 className="font-bold">Button Label</h2>
                 <Input
                     defaultValue={config.buttonLabel}
                     onChange={(e) => updateConfig({ buttonLabel: e.target.value })}
                 />
-                <h2 className="font-bold">Button Link &#8432;</h2>
+                <h2 className="font-bold">Button Link</h2>
                 <Input
                     placeholder="https:// . . . "
                     defaultValue={config.buttonLink}
