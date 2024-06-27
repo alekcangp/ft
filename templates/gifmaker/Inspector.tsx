@@ -131,6 +131,7 @@ export default function Inspector() {
         config.fontSize,
         config.fontStyle,
         config.fontColor,
+        config.buttonLink
     ])
 
     useEffect(() => {
@@ -138,7 +139,7 @@ export default function Inspector() {
             gifUrl: config?.gifUrl || 'https://iili.io/d9WJ44I.gif',
             fontColor: config?.fontColor || 'white',
             fontStyle: config?.fontStyle || 'ABeeZee',
-            //buttonLabel: config?.buttonLabel || 'LINK',
+            buttonLabel: config?.buttonLabel || ' ',
            // buttonLink: config?.buttonLink || 'https://frametra.in',
         })
         load()
@@ -159,7 +160,7 @@ export default function Inspector() {
 
             <div class="block w-full" onChange={(event) => setSource(event.target.value)}>
                 <label for="source" class="block mb-2 text-lg font-bold w-full">
-                    Video source&#8432;
+                    Video source &#8432;
                 </label>
                 <select
                     id="source"
@@ -202,13 +203,13 @@ export default function Inspector() {
                     />
                 </div>
 
-                <h2 className="font-bold">Start Time&#8432;</h2>
+                <h2 className="font-bold">Start Time &#8432;</h2>
                 <Input
                     placeholder="Seconds or mm:ss"
                     defaultValue={config.timeStart}
                     onChange={(e) => updateConfig({ timeStart: e.target.value })}
                 />
-                <h2 className="font-bold">Duration&#8432;</h2>
+                <h2 className="font-bold">Duration &#8432;</h2>
                 <Input
                     placeholder="GIF duration in seconds"
                     defaultValue={config.gifDuration}
@@ -246,12 +247,12 @@ export default function Inspector() {
                     defaultValue={config.fontStyle}
                     onSelect={(font: string) => updateConfig({ fontStyle: font })}
                 />
-                <h2 className="font-bold">Button Label&#8432;</h2>
+                <h2 className="font-bold">Button Label &#8432;</h2>
                 <Input
                     defaultValue={config.buttonLabel}
                     onChange={(e) => updateConfig({ buttonLabel: e.target.value })}
                 />
-                <h2 className="font-bold">Button Link&#8432;</h2>
+                <h2 className="font-bold">Button Link &#8432;</h2>
                 <Input
                     placeholder="https:// . . . "
                     defaultValue={config.buttonLink}
