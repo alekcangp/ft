@@ -70,14 +70,14 @@ export default function Inspector() {
                 '-r',
                 '8',
                 '-vf',
-                `scale=-1:210,drawtext=fontfile=font.woff:text='${config.gifCaption}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY}`,
+                `scale=-1:360,drawtext=fontfile=font.woff:text='${config.gifCaption}':fontcolor=${config.fontColor}:bordercolor=black:borderw=1:fontsize=${config.fontSize}:x=(w-text_w)/2:y=(h-text_h)-${config.captionY}`,
                 'output.gif',
             ])
 
             const data = await ffmpeg.readFile('output.gif')
-            const b64 = Buffer.from(data).toString('base64')
+            const imageData = Buffer.from(data).toString('base64')
             const { filePath } = await uploadImage({
-                base64String: b64,
+                base64String: imageData,
                 contentType: 'image/gif',
             })
             const gifUrl = process.env.NEXT_PUBLIC_CDN_HOST + '/' + filePath
