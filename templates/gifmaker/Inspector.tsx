@@ -153,18 +153,18 @@ export default function Inspector() {
                 {loading && <LoaderPinwheel className="animate-spin" />}
             </div>
 
-            <div class="block w-full" onChange={(event) => setSource(event.target.value)}>
-                <label for="source" class="block mb-2 text-lg font-bold w-full">
-                    Video source
-                </label>
-                <select
-                    id="source"
-                    class="h-12 border border-gray-500 text-lg rounded-lg block w-full py-2.5 px-4 focus:outline-none"
-                >
-                    <option value="file" selected>File</option>
-                    <option value="link">YouTube</option>
-                </select>
-            </div>
+            <label htmlFor="source" className="mb-2 text-lg font-bold">
+                Video source
+            </label>
+            <select
+                id="source"
+                className="h-12 border border-gray-500 text-lg rounded-lg w-full py-2.5 px-4 focus:outline-none"
+                value={source}
+                onChange={(e) => setSource(e.target.value)}
+            >
+                <option value="file">File</option>
+                <option value="link">YouTube</option>
+            </select>
 
             <div className={`space-y-2 ${source == 'file' ? 'visible' : 'hidden'}`}>
                 <label
@@ -197,7 +197,7 @@ export default function Inspector() {
                         }}
                     />
                     <p className="text-sm text-muted-foreground">
-                    The recommended video duration is less 15 min.
+                        The recommended video duration is less 15 min.
                     </p>
                 </div>
 
