@@ -143,7 +143,7 @@ export default function Inspector() {
     return (
         <div className="w-full h-full space-y-4">
             <video
-                class="border-solid border-2 rounded-lg border-gray-500"
+                className="border-solid border-2 rounded-lg border-gray-500"
                 ref={videoRef}
                 width="100%"
                 controls
